@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Iterator;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.eclipse.core.runtime.IBundleGroup;
 import org.eclipse.core.runtime.IBundleGroupProvider;
@@ -23,6 +21,8 @@ import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.progress.UIJob;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.Version;
 
 public class UtilRCP {
 
@@ -106,25 +106,15 @@ public class UtilRCP {
         return version;
     }
 
+    public static String getProductName() {
+        return Platform.getProduct().getName();
+    }
+
     public static String getProductVersion() {
-        String version = null;
-        try {
-            // this approach fails in "Rational Application Developer 6.0.1"
-            final IProduct product = Platform.getProduct();
-            final String aboutText = product.getProperty("aboutText"); //$NON-NLS-1$
-
-            final String pattern = "Version: (.*)\n"; //$NON-NLS-1$
-            final Pattern p = Pattern.compile(pattern);
-            final Matcher m = p.matcher(aboutText);
-            final boolean found = m.find();
-            if (found) {
-                version = m.group(1);
-            }
-        } catch (final Exception e) {
-            e.printStackTrace();
-        }
-
-        return version;
+        final IProduct product = Platform.getProduct();
+        final Bundle bundle = product.getDefiningBundle();
+        final Version v = bundle.getVersion();
+        return v.toString();
     }
 
     public static List<Object> getSelection(final String viewID) {
