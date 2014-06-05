@@ -16,7 +16,6 @@ public class ProgressMonitorAdapter implements ProgressMonitor {
     @Override
     public synchronized void finished() {
         monitor.done();
-
     }
 
     public synchronized String getName() {
@@ -41,6 +40,11 @@ public class ProgressMonitorAdapter implements ProgressMonitor {
 
     public synchronized void setName(final String name) {
         this.name = name;
+    }
+
+    @Override
+    public synchronized void setTaskName(final String name) {
+        monitor.setTaskName(name);
     }
 
     @Override
