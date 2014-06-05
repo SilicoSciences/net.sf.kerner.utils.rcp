@@ -118,9 +118,7 @@ public class UtilRCP {
     }
 
     public static List<Object> getSelection(final String viewID) {
-        final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-        final IWorkbenchPage page = window.getActivePage();
-        final IViewPart view = page.findView(viewID);
+        final IViewPart view = getViewByID(viewID);
         final ISelection selection = view.getSite().getSelectionProvider().getSelection();
         final List<Object> list = new ArrayList<Object>();
         if (selection != null && selection instanceof IStructuredSelection) {
