@@ -10,6 +10,9 @@ public class ProgressMonitorAdapter implements ProgressMonitor {
     private String name;
 
     public ProgressMonitorAdapter(final IProgressMonitor monitor) {
+        if (monitor == null) {
+            throw new NullPointerException();
+        }
         this.monitor = monitor;
     }
 
