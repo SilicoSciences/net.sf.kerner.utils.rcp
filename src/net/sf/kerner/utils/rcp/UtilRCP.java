@@ -14,6 +14,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
@@ -129,6 +130,26 @@ public class UtilRCP {
             }
         }
         return list;
+    }
+
+    /**
+     * Call in UI Thread.
+     *
+     */
+    public static Shell getShell() {
+
+        // PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+        // @Override
+        // public void run() {
+        // final Shell activeShell =
+        // PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+        // .getShell();
+        // }
+        // });
+
+        final IWorkbench wb = PlatformUI.getWorkbench();
+        final IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
+        return win.getShell();
     }
 
     /**

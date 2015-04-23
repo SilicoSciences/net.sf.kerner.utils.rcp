@@ -16,7 +16,15 @@ public abstract class JobUI2 extends UIJob {
     public JobUI2(final String pluginId) {
         super("update UI");
         this.pluginId = pluginId;
-        setPriority(INTERACTIVE);
+        setPriority(DECORATE);
+        setUser(false);
+        setSystem(true);
+    }
+
+    public JobUI2(final String pluginId, final int priority) {
+        super("update UI");
+        this.pluginId = pluginId;
+        setPriority(priority);
         setUser(false);
         setSystem(true);
     }

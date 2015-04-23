@@ -8,6 +8,11 @@ public abstract class JobResult<T> extends Job2 {
         super(name, pluginId);
     }
 
+    /**
+     * Blocks until result is available.
+     *
+     * @return
+     */
     public T getResultObject() {
         try {
             join();

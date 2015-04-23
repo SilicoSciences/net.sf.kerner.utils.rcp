@@ -13,9 +13,15 @@ public abstract class Job2 extends Job {
 
     private final String pluginId;
 
+    private IProgressMonitor monitor;
+
     public Job2(final String name, final String pluginId) {
         super(name);
         this.pluginId = pluginId;
+    }
+
+    protected IProgressMonitor getMonitor() {
+        return monitor;
     }
 
     protected int getTotalWorkLoad() {
@@ -24,6 +30,9 @@ public abstract class Job2 extends Job {
 
     @Override
     protected final IStatus run(final IProgressMonitor monitor) {
+        this.monitor = monitor;
+        if (monitor.isCanceled())
+            return Status.CANCEL_STATUS;
         monitor.beginTask(getName(), getTotalWorkLoad());
         try {
             return run2(monitor);
