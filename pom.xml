@@ -6,8 +6,8 @@
 		<artifactId>parent</artifactId>
 		<version>1-SNAPSHOT</version>
 	</parent>
-	<groupId>net.sf</groupId>
-	<artifactId>net.sf.kerner-utils-rcp</artifactId>
+	<groupId>net.sf.kerner.utils.rcp</groupId>
+	<artifactId>net.sf.kerner.utils.rcp</artifactId>
 	<version>3.0.0-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
 	<name>Kerner RCP Utilities</name>

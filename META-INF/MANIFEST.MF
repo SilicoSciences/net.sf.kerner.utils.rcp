@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Kerner RCP Utilities
-Bundle-SymbolicName: net.sf.kerner-utils-rcp;singleton:=true
+Bundle-SymbolicName: net.sf.kerner.utils.rcp
 Bundle-Version: 3.0.0.qualifier
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.jobs
