@@ -39,8 +39,7 @@ public class UtilRCP {
      */
     public static String getCurrentViewId() {
 
-        final IWorkbenchPage wbp = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-                .getActivePage();
+        final IWorkbenchPage wbp = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
         return wbp.getActivePartReference().getId();
 
     }
@@ -74,8 +73,7 @@ public class UtilRCP {
         String version = null;
         try {
             @SuppressWarnings("rawtypes")
-            final Dictionary dictionary = org.eclipse.ui.internal.WorkbenchPlugin.getDefault()
-                    .getBundle().getHeaders();
+            final Dictionary dictionary = org.eclipse.ui.internal.WorkbenchPlugin.getDefault().getBundle().getHeaders();
             version = (String) dictionary.get("Bundle-Version"); //$NON-NLS-1$
         } catch (final NoClassDefFoundError e) {
             version = getProductVersion();
