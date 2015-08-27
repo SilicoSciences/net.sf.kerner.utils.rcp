@@ -36,7 +36,8 @@ public abstract class JobUI2 extends UIJob {
     @Override
     public final IStatus runInUIThread(final IProgressMonitor monitor) {
         try {
-            monitor.beginTask(getName(), getTotalWorkLoad());
+            if (monitor != null)
+                monitor.beginTask(getName(), getTotalWorkLoad());
             return runInUIThread2(monitor);
         } catch (final Exception e) {
             if (log.isErrorEnabled()) {
@@ -44,7 +45,8 @@ public abstract class JobUI2 extends UIJob {
             }
             return new Status(Status.ERROR, pluginId, e.getLocalizedMessage());
         } finally {
-            monitor.done();
+            if (monitor != null)
+                monitor.done();
         }
     }
 
