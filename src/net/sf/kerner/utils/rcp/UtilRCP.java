@@ -8,7 +8,10 @@ import java.util.List;
 import org.eclipse.core.runtime.IBundleGroup;
 import org.eclipse.core.runtime.IBundleGroupProvider;
 import org.eclipse.core.runtime.IProduct;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
@@ -30,6 +33,21 @@ public class UtilRCP {
     public static void enableMemoryMonitor() {
         final IPreferenceStore store = PlatformUI.getPreferenceStore();
         store.setValue("SHOW_MEMORY_MONITOR", true);
+    }
+
+    public static MultiStatus createMultiStatus(String msg, Throwable t) {
+
+        List<Status> childStatuses = new ArrayList<Status>();
+        StackTraceElement[] stackTraces = Thread.currentThread().getStackTrace();
+
+        for (StackTraceElement stackTrace : stackTraces) {
+            Status status = new Status(IStatus.ERROR, "net.sf.geal.example.ui", stackTrace.toString());
+            childStatuses.add(status);
+        }
+
+        MultiStatus ms = new MultiStatus("net.sf.geal.example.ui", IStatus.ERROR,
+                childStatuses.toArray(new Status[] {}), t.toString(), t);
+        return ms;
     }
 
     /**
