@@ -30,24 +30,30 @@ import org.osgi.framework.Version;
 
 public class UtilRCP {
 
-    public static void enableMemoryMonitor() {
-        final IPreferenceStore store = PlatformUI.getPreferenceStore();
-        store.setValue("SHOW_MEMORY_MONITOR", true);
-    }
-
-    public static MultiStatus createMultiStatus(String msg, Throwable t) {
+    public static MultiStatus createMultiStatus(String id, Throwable t) {
 
         List<Status> childStatuses = new ArrayList<Status>();
         StackTraceElement[] stackTraces = Thread.currentThread().getStackTrace();
 
         for (StackTraceElement stackTrace : stackTraces) {
-            Status status = new Status(IStatus.ERROR, "net.sf.geal.example.ui", stackTrace.toString());
+            Status status = new Status(IStatus.ERROR, "net.sf.geal.example.ui",
+                    stackTrace.toString());
             childStatuses.add(status);
         }
 
-        MultiStatus ms = new MultiStatus("net.sf.geal.example.ui", IStatus.ERROR,
-                childStatuses.toArray(new Status[] {}), t.toString(), t);
+        MultiStatus ms;
+        if (t != null)
+            ms = new MultiStatus(id, IStatus.ERROR, childStatuses.toArray(new Status[] {}),
+                    t.toString(), t);
+        else
+            ms = new MultiStatus(id, IStatus.ERROR, childStatuses.toArray(new Status[] {}), "",
+                    null);
         return ms;
+    }
+
+    public static void enableMemoryMonitor() {
+        final IPreferenceStore store = PlatformUI.getPreferenceStore();
+        store.setValue("SHOW_MEMORY_MONITOR", true);
     }
 
     /**
@@ -57,7 +63,8 @@ public class UtilRCP {
      */
     public static String getCurrentViewId() {
 
-        final IWorkbenchPage wbp = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+        final IWorkbenchPage wbp = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+                .getActivePage();
         return wbp.getActivePartReference().getId();
 
     }
@@ -91,7 +98,8 @@ public class UtilRCP {
         String version = null;
         try {
             @SuppressWarnings("rawtypes")
-            final Dictionary dictionary = org.eclipse.ui.internal.WorkbenchPlugin.getDefault().getBundle().getHeaders();
+            final Dictionary dictionary = org.eclipse.ui.internal.WorkbenchPlugin.getDefault()
+                    .getBundle().getHeaders();
             version = (String) dictionary.get("Bundle-Version"); //$NON-NLS-1$
         } catch (final NoClassDefFoundError e) {
             version = getProductVersion();
