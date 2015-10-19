@@ -13,5 +13,5 @@ Import-Package: net.sf.kerner.utils,
  org.eclipse.swt.widgets,
  org.osgi.framework,
  org.slf4j;version="1.7.2"
-Export-Package: net.sf.kerner.utils.rcp
+Export-Package: net.sf.kerner.utils.rcp;version="3.0.0.quailifier"
 Bundle-ActivationPolicy: lazy
